@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col justify-center items-center">
     <add-space-for-navbar>
-      <div v-for="n in 100" :key="n">{{ n }}</div>
+      <h1>This is a categories page</h1>
     </add-space-for-navbar>
   </div>
 </template>
