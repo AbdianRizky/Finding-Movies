@@ -7,6 +7,9 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Nunito", ...defaultTheme.fontFamily.sans]
+      },
+      translate: {
+        "1px": "-1px"
       }
     }
   },

@@ -1,11 +1,12 @@
 <template>
-  <header
+  <!-- Main Navbar -->
+  <navbar
     :class="{ 'shadow-none -translate-y-full': !scroll }"
-    class="navbar w-full h-16 fixed transition-all duration-400 ease-in-out transform-gpu bg-gradient-to-r from-blue-600 to-purple-600 text-white flex justify-between items-center py-2 px-4 flex-row-reverse z-10 shadow-lg md:flex-row md:px-8 lg:h-20 xl:px-12"
+    class="w-full h-16 fixed transition-all duration-300 ease-in-out transform-gpu bg-gradient-to-r from-blue-600 to-purple-600 text-white flex justify-between items-center py-2 px-4 flex-row-reverse z-10 shadow-lg md:px-8 md:flex-row md:h-20 xl:px-12"
   >
     <!-- Title -->
     <router-link
-      class="cursor-pointer flex justify-end items-center font-bold text-4xl"
+      class="cursor-pointer font-bold text-4xl focus:outline-none"
       :to="{ name: 'Home' }"
     >
       FMs<small class="text-sm">®</small>
@@ -13,12 +14,11 @@
     <!-- end Title -->
 
     <!-- Menu Navigation -->
-
     <nav class="hidden md:visible md:w-auto md:h-full md:flex md:items-center">
       <router-link
         v-for="(link, index) in pages"
         :key="index"
-        class="transition duration-200 ease-in-out text-white h-full tracking-widest no-underline flex justify-center items-center hover:text-gray-300 focus:outline-none md:px-6 xl:px-8 xl:text-lg 2xl:px-10"
+        class="transition duration-200 ease-in-out text-white h-full tracking-widest no-underline flex justify-center items-center text-lg hover:text-gray-300 focus:outline-none md:px-8 lg:text-xl 2xl:px-10"
         :to="{ name: link.page }"
       >
         {{ link.page }}
@@ -26,20 +26,35 @@
     </nav>
     <!-- end Menu Navigation -->
 
-    <!-- Menu icon -->
-    <div @click="showNavbar()" class="cursor-pointer md:hidden z-10">
-      <IconMenu :width="30" :height="30" color="#fff" />
+    <!-- Burger Menu -->
+    <div
+      @click="hideNavbar()"
+      class="w-9 h-7 cursor-pointer md:hidden z-10 flex flex-col justify-between items-center"
+    >
+      <div
+        :class="{ 'translate-x-1 translate-y-1px rotate-45': !hideMenu }"
+        class="w-full h-1 bg-white block rounded-md transform-gpu origin-left transition-all duration-300 ease-in-out"
+      ></div>
+      <div
+        :class="{ '-translate-x-full opacity-0': !hideMenu }"
+        class="w-full h-1 bg-white block rounded-md transform-gpu transition-all duration-300 ease-in-out"
+      ></div>
+      <div
+        :class="{ 'translate-x-1 -rotate-45': !hideMenu }"
+        class="w-full h-1 bg-white block rounded-md transform-gpu origin-left transition-all duration-300 ease-in-out"
+      ></div>
     </div>
-    <!-- end Menu icon -->
-  </header>
+    <!-- end Burger Menu -->
+  </navbar>
+  <!-- end Main Navbar -->
+
   <!-- Mobile Menu Navigation -->
-  <nav
-    v-if="showMenu == true"
+  <navbar
     :class="{
-      'shadow-none -translate-y-full': (showMenu = true),
+      '-translate-x-full': hideMenu,
       'shadow-none -translate-y-full': !scroll
     }"
-    class="navbar w-full h-16 py-2 px-8 fixed transition-all duration-400 ease-in-out transform-gpu translate-y-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white tracking-widest no-underline flex justify-between items-center hover:text-gray-300 focus:outline-none md:hidden"
+    class="w-full h-20 py-2 fixed bg-fixed transition-all duration-300 ease-in-out transform-gpu translate-y-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white tracking-widest no-underline flex justify-around items-center hover:text-gray-300 focus:outline-none md:hidden"
   >
     <router-link
       v-for="(link, index) in pages"
@@ -49,15 +64,12 @@
     >
       {{ link.label }}
     </router-link>
-  </nav>
+  </navbar>
   <!-- end Mobile Menu Navigation -->
 </template>
 
 <script>
-import IconMenu from "./Icons/IconMenu";
-
 export default {
-  components: { IconMenu },
   data() {
     return {
       pages: [
@@ -74,24 +86,20 @@ export default {
           label: "🧑"
         }
       ],
-      showMenu: false,
+      hideMenu: true,
       scroll: true,
       lastScrollPosition: 0,
       scrollValue: 0
     };
   },
   mounted() {
-    window.addEventListener("scroll", this.hideNavbar);
+    window.addEventListener("scroll", this.onScrollHideNavbar);
   },
   methods: {
-    showNavbar() {
-      !this.showMenu
-        ? (this.showMenu = true)
-        : setTimeout(() => {
-            this.showMenu = false;
-          }, 1000);
-    },
     hideNavbar() {
+      !this.hideMenu ? (this.hideMenu = true) : (this.hideMenu = false);
+    },
+    onScrollHideNavbar() {
       this.scroll = window.pageYOffset < this.lastScrollPosition;
       this.lastScrollPosition = window.pageYOffset;
     }
