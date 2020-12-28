@@ -6,10 +6,10 @@
   >
     <!-- Title -->
     <router-link
-      class="cursor-pointer font-bold text-4xl focus:outline-none"
+      class="cursor-pointer font-bold text-4xl focus:outline-none xl:text-5xl"
       :to="{ name: 'Home' }"
     >
-      FMs<small class="text-sm">®</small>
+      FMs<sup><small class="text-sm">®</small></sup>
     </router-link>
     <!-- end Title -->
 
@@ -29,10 +29,10 @@
     <!-- Burger Menu -->
     <div
       @click="hideNavbar()"
-      class="w-9 h-7 cursor-pointer md:hidden z-10 flex flex-col justify-between items-center"
+      class="w-8 h-6 cursor-pointer md:hidden z-10 flex flex-col justify-between items-center"
     >
       <div
-        :class="{ 'translate-x-1 translate-y-1px rotate-45': !hideMenu }"
+        :class="{ 'translate-x-1 translate-y-2px rotate-45': !hideMenu }"
         class="w-full h-1 bg-white block rounded-md transform-gpu origin-left transition-all duration-300 ease-in-out"
       ></div>
       <div

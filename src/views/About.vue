@@ -1,17 +1,7 @@
 <template>
-  <div class="flex flex-col justify-center items-center">
-    <add-space-for-navbar>
-      <h1>This is an about page</h1>
-    </add-space-for-navbar>
-  </div>
+  <h1>This is an about page</h1>
 </template>
 
 <script>
-import AddSpaceForNavbar from "../layouts/AddSpaceForNavbar.vue";
-
-export default {
-  components: {
-    AddSpaceForNavbar
-  }
-};
+export default {};
 </script>
