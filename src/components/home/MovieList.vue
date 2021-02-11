@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import MovieCard from "./main/MovieCard.vue";
+import MovieCard from "./MovieCard.vue";
 
 export default {
   components: {

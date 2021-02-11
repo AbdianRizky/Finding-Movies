@@ -5,26 +5,26 @@
     @clickSearchButton="searchButton()"
   />
   <div
-    :class="{ hidden: response === 'True', hidden: response === 'False' }"
-    class="w-full h-full bg-gray-300"
+    :class="{ hidden: response === 'True', block: response === 'False' }"
+    class="w-full h-max-screen bg-gray-300"
   >
     Home
   </div>
   <Suspense v-if="response === 'True'">
-    <!-- retrieve when its loaded -->
+    <!-- retrieve when its fully loaded -->
     <template #default>
       <div>
         <movie-list :result="hasilCari" />
         <Footer />
       </div>
     </template>
-    <!-- retrieve when its loaded -->
+    <!-- retrieve when its fully loaded -->
 
-    <!-- loading -->
+    <!-- loader -->
     <template #fallback>
       <Loading />
     </template>
-    <!-- loading -->
+    <!-- loader -->
   </Suspense>
   <!-- no response -->
   <section
@@ -42,8 +42,8 @@
 import axios from "axios";
 import { defineAsyncComponent } from "vue";
 import SearchSection from "@/components/home/SearchSection.vue";
-import Footer from "@/components/Footer.vue";
-import Loading from "@/components/Loading.vue";
+import Footer from "@/components/layouts/Footer.vue";
+import Loading from "@/components/ui/Loading.vue";
 
 const MovieList = defineAsyncComponent(async () => {
   await new Promise(r => setTimeout(r, 3000));
